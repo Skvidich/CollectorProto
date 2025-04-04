@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package collector;
+
+option go_package ="Skvidich.collector.v1;collectorV1";
+//Available commands:
+//  list               - List all getters and their statuses
+//  info <name>        - Get info about specific getter
+//  start <name>       - Start getter(s)
+//  stop <name>    	 - Stop getter(s)
+//  shutdown           - Full system shutdown
+//  help               - Show this help`
+
+message Getter{
+  string name =1;
+  string status =2;
+}
+
+service Control{
+  rpc GetList (ListRequest) returns (ListResponse);
+  rpc GetInfo (InfoRequest) returns (InfoResponse);
+  rpc Start (StartRequest) returns (StartResponse);
+  rpc Stop (StopRequest) returns (StopResponse);
+  rpc Shutdown (ShutdownRequest) returns (ShutdownResponse);
+}
+
+// GetList types
+message ListRequest{
+
+}
+
+message ListResponse{
+  repeated Getter list=1;
+}
+
+// GetInfo types
+
+message InfoRequest{
+  string name = 1;
+}
+
+message InfoResponse{
+  string status =1;
+}
+
+// Start types
+
+message StartRequest{
+  string name =1;
+}
+
+message StartResponse{
+  bool result =1;
+}
+
+// Stop types
+
+message StopRequest{
+  string name =1;
+}
+
+message StopResponse{
+  bool result =1;
+}
+
+// Shutdown types
+
+message ShutdownRequest{
+
+}
+
+message ShutdownResponse{
+  bool result =1;
+}
+
+service Storage {
+  rpc GetReport(ReportRequest) returns (ReportResponse);
+}
+
+message ReportRequest{
+
+}
+
+message ReportResponse{
+
+}
